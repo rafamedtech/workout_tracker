@@ -1,29 +1,23 @@
 export const state = () => ({
   user: null,
-  isLoggedIn: false,
   isLoading: false,
   statusMsg: null,
   errorMsg: null,
-  workouts: [],
 })
 
 export const actions = {
-  async nuxtServerInit({ dispatch }, context) {
-    await dispatch('fetchWorkouts')
+  // Fetch all workouts from supabase
+  async nuxtServerInit({ dispatch }) {
+    await dispatch('workouts/fetchWorkouts')
+    await dispatch('fetchUser')
   },
 
-  // Fetch all workouts from supabase
-  async fetchWorkouts({ commit }) {
-    try {
-      const { data, error } = await this.$supabase.from('workouts').select('*')
-      commit('setWorkouts', data)
-
-      if (error) throw error
-    } catch ({ message }) {
-      commit('setErrorMsg', message)
-      setTimeout(() => {
-        commit('setErrorMsg', null)
-      }, 5000)
+  fetchUser({ commit }) {
+    const user = this.$supabase.auth.user()
+    if (user) {
+      commit('setUser', user)
+    } else {
+      commit('setUser', null)
     }
   },
 
@@ -76,38 +70,15 @@ export const actions = {
       }, 5000)
     }
   },
-
-  // Create Workout
-  async createWorkout({ commit }, payload) {
-    try {
-      const { error } = await this.$supabase.from('workouts').insert([payload])
-
-      commit('setStatusMsg', 'Workout created')
-      setTimeout(() => {
-        commit('setStatusMsg', null)
-      }, 5000)
-
-      if (error) throw error
-    } catch ({ message }) {
-      commit('setErrorMsg', message)
-      setTimeout(() => {
-        commit('setErrorMsg', null)
-      }, 5000)
-    }
-  },
 }
 
 export const getters = {
-  getWorkouts: (state) => state.workouts,
   getUser: (state) => state.user,
   getStatusMsg: (state) => state.statusMsg,
   getErrorMsg: (state) => state.errorMsg,
 }
 
 export const mutations = {
-  setWorkouts(state, workouts) {
-    state.workouts = workouts
-  },
   setUser(state, payload) {
     state.user = payload
   },

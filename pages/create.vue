@@ -2,7 +2,7 @@
   <main class="mx-auto max-w-screen-md px-4 py-10">
     <!-- Create Form -->
     <form
-      class="flex flex-col gap-4 rounded-md bg-light-grey p-8 shadow-md shadow-at-light-blue"
+      class="flex flex-col gap-4 rounded-md bg-light-grey p-8 shadow-lg"
       @submit.prevent="createWorkout"
     >
       <h1 class="mb-4 text-3xl text-at-light-blue">Create Workout</h1>
@@ -214,6 +214,12 @@
 <script>
 import { uid } from 'uid'
 export default {
+  middleware({ store, redirect }) {
+    // If the user is not authenticated
+    if (!store.state.user) {
+      return redirect('/login')
+    }
+  },
   data() {
     return {
       workoutName: '',
@@ -267,14 +273,11 @@ export default {
       }, 5000)
     },
     createWorkout() {
-      this.$store.dispatch('createWorkout', {
+      return this.$store.dispatch('workouts/createWorkout', {
         name: this.workoutName,
         type: this.workoutType,
         exercises: this.exercises,
       })
-      this.workoutName = ''
-      this.workoutType = ''
-      this.exercises = []
     },
   },
 }

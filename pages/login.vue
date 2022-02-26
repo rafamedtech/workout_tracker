@@ -2,7 +2,7 @@
   <main class="mx-auto max-w-screen-sm px-4 py-10">
     <!-- Login Form -->
     <form
-      class="flex flex-col gap-4 rounded-md bg-light-grey p-8 shadow-md shadow-at-light-blue"
+      class="flex flex-col gap-4 rounded-md bg-light-grey p-8 shadow-lg"
       @submit.prevent="userLogin"
     >
       <h1 class="mb-4 text-3xl text-at-light-blue">Login</h1>

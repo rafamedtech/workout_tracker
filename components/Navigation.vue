@@ -8,14 +8,18 @@
         <h1 class="text-lg">Workout Tracker</h1>
       </article>
       <ul class="flex flex-1 justify-end gap-x-10">
-        <nuxt-link class="cursor-pointer" to="/">Home</nuxt-link>
+        <nuxt-link v-if="$route.path !== '/'" class="cursor-pointer" to="/"
+          >Home</nuxt-link
+        >
         <nuxt-link v-if="user" class="cursor-pointer" to="/create"
           >Create</nuxt-link
         >
         <nuxt-link v-if="!user" class="cursor-pointer" to="/login"
           >Login</nuxt-link
         >
-        <li v-else class="cursor-pointer" @click="userLogout">Logout</li>
+        <button v-else class="cursor-pointer" @click="userLogout">
+          Logout
+        </button>
       </ul>
     </nav>
   </header>

@@ -2,7 +2,7 @@
   <main class="mx-auto max-w-screen-sm px-4 py-10">
     <!-- Register Form -->
     <form
-      class="flex flex-col gap-4 rounded-md bg-light-grey p-8 shadow-md shadow-at-light-blue"
+      class="flex flex-col gap-4 rounded-md bg-light-grey p-8 shadow-lg"
       @submit.prevent="userRegister"
     >
       <h1 class="mb-4 text-3xl text-at-light-blue">Register</h1>
