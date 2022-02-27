@@ -2,7 +2,7 @@
   <div class="mx-auto max-w-screen-sm px-4 py-5">
     <!-- App Msg -->
     <!-- <div
-      v-if="statusMsg || errorMsg"
+      v-if="statusMsg || errorMsg || formErrorMsg"
       class="mb-10 rounded-md bg-light-grey p-4 shadow-md"
     >
       <p class="text-at-light-green">
@@ -10,6 +10,9 @@
       </p>
       <p class="text-red-500">
         {{ errorMsg }}
+      </p>
+      <p class="text-red-500">
+        {{ formErrorMsg }}
       </p>
     </div> -->
     <button
@@ -28,22 +31,23 @@
         <div v-if="user" class="absolute left-2 top-2 flex gap-x-2">
           <div
             class="flex h-7 w-7 cursor-pointer items-center justify-center rounded-full bg-at-light-blue shadow-lg"
-            @click="editMode"
-          >
-            <img
-              class="h-3.5 w-auto"
-              src="@/assets/images/pencil-light.png"
-              alt="edit-icon"
-            />
-          </div>
-          <div
-            class="flex h-7 w-7 cursor-pointer items-center justify-center rounded-full bg-at-light-blue shadow-lg"
             @click="deleteWorkout"
           >
             <img
               class="h-3.5 w-auto"
               src="@/assets/images/trash-light.png"
               alt="delete-icon"
+            />
+          </div>
+          <div
+            v-if="!edit"
+            class="flex h-7 w-7 cursor-pointer items-center justify-center rounded-full bg-at-light-blue shadow-lg"
+            @click="editMode"
+          >
+            <img
+              class="h-3.5 w-auto"
+              src="@/assets/images/pencil-light.png"
+              alt="edit-icon"
             />
           </div>
         </div>
@@ -156,7 +160,7 @@
               class="absolute -left-5 h-4 w-auto cursor-pointer"
               src="@/assets/images/trash-light-green.png"
               alt="edit-icon"
-              @click="deleteExercise(item.id)"
+              @click="removeExercise(item.id)"
             />
           </div>
           <button
@@ -237,7 +241,7 @@
               class="absolute -left-5 h-4 w-auto cursor-pointer"
               src="@/assets/images/trash-light-green.png"
               alt="edit-icon"
-              @click="deleteExercise(item.id)"
+              @click="removeExercise(item.id)"
             />
           </div>
           <button
@@ -260,18 +264,35 @@
       >
         Update Workout
       </button>
+      <div v-if="!dataLoaded">
+        <div
+          class="relative mb-10 flex h-[270px] flex-col items-center justify-center rounded-md bg-light-grey p-8 text-3xl shadow-md"
+        >
+          <vue-simple-spinner size="large" />
+        </div>
+        <div
+          class="item-center mt-10 flex h-[112px] flex-col items-center justify-center rounded-md bg-light-grey p-8 shadow-md"
+        >
+          <vue-simple-spinner size="medium" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import VueSimpleSpinner from 'vue-simple-spinner'
 import { uid } from 'uid'
 
 export default {
+  components: {
+    VueSimpleSpinner,
+  },
   data() {
     return {
       edit: false,
       dataLoaded: false,
+      formErrorMsg: null,
       workout: {},
     }
   },
@@ -308,7 +329,7 @@ export default {
     },
     addExercise() {
       if (this.workout.type === 'strength') {
-        this.exercises.push({
+        this.workout.exercises.push({
           id: uid(),
           exercise: '',
           sets: '',
@@ -318,7 +339,7 @@ export default {
         return
       }
       if (this.workout.type === 'cardio') {
-        this.exercises.push({
+        this.workout.exercises.push({
           id: uid(),
           cardioType: '',
           distance: '',
@@ -326,6 +347,18 @@ export default {
           pace: '',
         })
       }
+    },
+    removeExercise(id) {
+      if (this.workout.exercises.length > 1) {
+        this.workout.exercises = this.workout.exercises.filter(
+          (exercise) => exercise.id !== id
+        )
+        return
+      }
+      this.formErrorMsg = 'You must have at least one exercise'
+      setTimeout(() => {
+        this.formErrorMsg = null
+      }, 5000)
     },
   },
 }

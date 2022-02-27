@@ -15,7 +15,8 @@
     "core-js": "^3.15.1",
     "nuxt": "^2.15.7",
     "nuxt-supabase": "^2.2.1",
-    "uid": "^2.0.0"
+    "uid": "^2.0.0",
+    "vue-simple-spinner": "^1.2.10"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.14.7",

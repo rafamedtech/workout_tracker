@@ -20,7 +20,7 @@
         v-for="(workout, index) in workouts"
         :key="index"
         class="flex cursor-pointer flex-col items-center bg-light-grey p-8 shadow-md"
-        :to="`/${workout.id}`"
+        :to="`/view-workout/${workout.id}`"
       >
         <!-- Cardio Img -->
         <img

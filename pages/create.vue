@@ -216,8 +216,8 @@ import { uid } from 'uid'
 export default {
   middleware({ store, redirect }) {
     // If the user is not authenticated
-    if (!store.state.user) {
-      return redirect('/login')
+    if (!store.getters.getUser) {
+      return redirect('/')
     }
   },
   data() {
@@ -228,6 +228,7 @@ export default {
       formErrorMsg: '',
     }
   },
+
   computed: {
     errorMsg() {
       return this.$store.getters.getErrorMsg
