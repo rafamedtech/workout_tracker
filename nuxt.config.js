@@ -17,6 +17,8 @@ export default {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
 
+  loading: false,
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: ['@/assets/css/main.css'],
 
@@ -31,20 +33,19 @@ export default {
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
     '@nuxt/postcss8',
+    [
+      'nuxt-supabase',
+      {
+        supabaseUrl: process.env.SUPABASE_URL,
+        supabaseKey: process.env.SUPABASE_KEY,
+      },
+    ],
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    [
-      'nuxt-supabase',
-      {
-        supabaseUrl: 'https://ntceuegidenpjafuvssn.supabase.co',
-        supabaseKey:
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im50Y2V1ZWdpZGVucGphZnV2c3NuIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NDU2NDgxMTcsImV4cCI6MTk2MTIyNDExN30.r3yFWJ_sAG3fACz5a-PVXt737aVnLg9QgxkdV_smNvA',
-      },
-    ],
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
