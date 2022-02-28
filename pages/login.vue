@@ -2,7 +2,7 @@
   <main class="mx-auto max-w-screen-sm px-4 py-10">
     <!-- Login Form -->
     <form
-      class="flex flex-col gap-4 rounded-md bg-light-grey p-8 shadow-lg"
+      class="flex flex-col gap-4 rounded-lg bg-white p-8 shadow-lg"
       @submit.prevent="userLogin"
     >
       <h1 class="mb-4 text-3xl text-at-light-blue">Login</h1>
@@ -12,7 +12,7 @@
           id="email"
           v-model="email"
           type="email"
-          class="p-2 text-gray-500 focus:outline-at-light-blue"
+          class="border border-black p-2 text-gray-500 focus:outline-at-light-blue"
           required
         />
       </section>
@@ -25,7 +25,7 @@
           id="password"
           v-model="password"
           type="password"
-          class="p-2 text-gray-500 focus:outline-at-light-blue"
+          class="border border-black p-2 text-gray-500 focus:outline-at-light-blue"
           required
         />
       </section>
@@ -40,11 +40,6 @@
         Don't have an account? <span class="text-at-light-blue">Register</span>
       </nuxt-link>
     </form>
-
-    <!-- Error Handling -->
-    <article v-if="errorMsg" class="mt-10 rounded-md bg-light-grey p-4">
-      <p class="text-red-500">Error: {{ errorMsg }}</p>
-    </article>
   </main>
 </template>
 
@@ -56,11 +51,7 @@ export default {
       password: '',
     }
   },
-  computed: {
-    errorMsg() {
-      return this.$store.getters.getErrorMsg
-    },
-  },
+
   methods: {
     userLogin() {
       return this.$store.dispatch('userLogin', {

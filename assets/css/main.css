@@ -4,4 +4,24 @@
 
 @layer base {
   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap');
+
+  html {
+    background-color: #fafafb;
+  }
+}
+
+/* Transitions */
+.slide-fade-enter {
+  transform: translateX(15px);
+  opacity: 0;
+}
+
+.slide-fade-enter-active,
+.slide-fade-leave-active {
+  transition: all 0.3s ease-out;
+}
+
+.slide-fade-leave-to {
+  transform: translateX(-15px);
+  opacity: 0;
 }

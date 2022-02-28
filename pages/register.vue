@@ -46,7 +46,7 @@
       <input
         type="submit"
         value="Register"
-        class="mt-6 cursor-pointer self-center rounded-sm border-2 border-solid border-transparent bg-at-light-blue py-2 px-6 text-sm text-white duration-200 hover:border-at-light-blue hover:bg-white hover:text-at-light-blue"
+        class="mt-6 cursor-pointer self-center rounded-sm border-2 border-solid border-transparent bg-btn-primary py-2 px-6 text-sm text-white duration-200 hover:border-at-light-blue hover:bg-white hover:text-at-light-blue"
       />
 
       <nuxt-link class="mt-6 text-center text-sm" to="/login">
@@ -54,21 +54,29 @@
       </nuxt-link>
     </form>
 
-    <!-- Error Handling -->
-    <article v-if="errorMsg" class="mt-10 rounded-md bg-light-grey p-4">
-      <p class="text-red-500">{{ errorMsg }}</p>
+    <!-- Form Error Handling -->
+    <article
+      v-if="formErrorMsg"
+      class="absolute right-4 bottom-4 mt-10 flex animate-bounce items-center gap-x-2 rounded-md bg-light-grey p-4 text-red-500 shadow-lg"
+    >
+      <AlertCircle />
+      <p>{{ formErrorMsg }}</p>
     </article>
   </main>
 </template>
 
 <script>
+import AlertCircle from 'vue-material-design-icons/AlertCircle.vue'
 export default {
+  components: {
+    AlertCircle,
+  },
   data() {
     return {
       email: '',
       password: '',
       confirmPassword: '',
-      errorMsg: '',
+      formErrorMsg: '',
     }
   },
   methods: {
@@ -79,9 +87,9 @@ export default {
           password: this.password,
         })
       }
-      this.errorMsg = 'Passwords do not match'
+      this.formErrorMsg = 'Passwords do not match'
       setTimeout(() => {
-        this.errorMsg = ''
+        this.formErrorMsg = ''
       }, 5000)
     },
   },

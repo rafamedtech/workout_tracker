@@ -1,20 +1,5 @@
 <template>
-  <div class="mx-auto max-w-screen-sm px-4 py-5">
-    <!-- App Msg -->
-    <!-- <div
-      v-if="statusMsg || errorMsg || formErrorMsg"
-      class="mb-10 rounded-md bg-light-grey p-4 shadow-md"
-    >
-      <p class="text-at-light-green">
-        {{ statusMsg }}
-      </p>
-      <p class="text-red-500">
-        {{ errorMsg }}
-      </p>
-      <p class="text-red-500">
-        {{ formErrorMsg }}
-      </p>
-    </div> -->
+  <main class="mx-auto max-w-screen-sm px-4 py-5">
     <button
       class="mb-5 self-start rounded-sm border-2 border-solid border-transparent bg-at-light-blue py-2 px-6 text-sm text-white duration-200 hover:border-at-light-blue hover:bg-white hover:text-at-light-blue"
       @click="$router.go(-1)"
@@ -26,7 +11,7 @@
       <!-- General Workout Info -->
       <div
         v-if="dataLoaded"
-        class="relative flex flex-col items-center rounded-md bg-light-grey p-8 shadow-md"
+        class="relative flex flex-col items-center rounded-md bg-white p-8 shadow-md"
       >
         <div v-if="user" class="absolute left-2 top-2 flex gap-x-2">
           <div
@@ -88,7 +73,7 @@
       <!-- Exercises -->
       <div
         v-if="dataLoaded"
-        class="item-center mt-10 flex flex-col rounded-md bg-light-grey p-8 shadow-md"
+        class="item-center mt-10 flex flex-col rounded-md bg-white p-8 shadow-md"
       >
         <!-- Strength Training -->
         <div
@@ -157,7 +142,7 @@
             </div>
             <img
               v-if="edit"
-              class="absolute -left-5 h-4 w-auto cursor-pointer"
+              class="absolute -right-5 h-4 w-auto cursor-pointer"
               src="@/assets/images/trash-light-green.png"
               alt="edit-icon"
               @click="removeExercise(item.id)"
@@ -191,9 +176,9 @@
                 class="w-full p-2 text-gray-500 focus:outline-none"
                 type="text"
               >
-                <option value="#">Select Type</option>
-                <option value="run">Runs</option>
-                <option value="walk">Walk</option>
+                <!-- <option value="#">Select Type</option> -->
+                <option value="Run">Run</option>
+                <option value="Walk">Walk</option>
               </select>
               <p v-else>{{ item.cardioType }}</p>
             </div>
@@ -238,7 +223,7 @@
             </div>
             <img
               v-if="edit"
-              class="absolute -left-5 h-4 w-auto cursor-pointer"
+              class="absolute -right-5 h-4 w-auto cursor-pointer"
               src="@/assets/images/trash-light-green.png"
               alt="edit-icon"
               @click="removeExercise(item.id)"
@@ -264,34 +249,52 @@
       >
         Update Workout
       </button>
+
+      <!-- Form Error Handling -->
+      <article
+        v-if="formErrorMsg"
+        class="absolute right-4 bottom-4 mt-10 flex animate-bounce items-center gap-x-2 rounded-md bg-white p-4 text-red-500 shadow-lg"
+      >
+        <AlertCircle />
+        <p>{{ formErrorMsg }}</p>
+      </article>
+
       <div v-if="!dataLoaded">
         <div
-          class="relative mb-10 flex h-[270px] flex-col items-center justify-center rounded-md bg-light-grey p-8 text-3xl shadow-md"
+          class="relative mb-10 flex h-[270px] flex-col items-center justify-center rounded-md bg-white p-8 text-3xl shadow-md"
         >
-          <vue-simple-spinner size="large" />
+          <svg
+            class="relative h-10 w-10 animate-spin rounded-full border-t-2 border-r-2 border-at-light-blue"
+            viewBox="0 0 24 24"
+          ></svg>
         </div>
         <div
-          class="item-center mt-10 flex h-[112px] flex-col items-center justify-center rounded-md bg-light-grey p-8 shadow-md"
+          class="item-center mt-10 flex h-[112px] flex-col items-center justify-center rounded-md bg-white p-8 shadow-md"
         >
-          <vue-simple-spinner size="medium" />
+          <svg
+            class="relative h-5 w-5 animate-spin rounded-full border-t-2 border-r-2 border-at-light-blue"
+            viewBox="0 0 24 24"
+          ></svg>
         </div>
       </div>
     </div>
-  </div>
+    <DeleteModal v-if="deleteModal" :workout="workout" />
+  </main>
 </template>
 
 <script>
-import VueSimpleSpinner from 'vue-simple-spinner'
 import { uid } from 'uid'
+import AlertCircle from 'vue-material-design-icons/AlertCircle.vue'
 
 export default {
   components: {
-    VueSimpleSpinner,
+    AlertCircle,
   },
   data() {
     return {
       edit: false,
       dataLoaded: false,
+      deleteModal: false,
       formErrorMsg: null,
       workout: {},
     }
@@ -308,6 +311,7 @@ export default {
   },
 
   methods: {
+    // Get current workout
     async getWorkout() {
       const { data } = await this.$supabase
         .from('workouts')
@@ -320,13 +324,16 @@ export default {
       this.edit = !this.edit
     },
     deleteWorkout() {
-      return this.$store.dispatch('workouts/deleteWorkout', this.workout.id)
+      this.deleteModal = true
     },
+
     // Update Workout
     updateWorkout() {
       this.$store.dispatch('workouts/updateWorkout', this.workout)
       this.edit = false
     },
+
+    // Add Exercise to Workout
     addExercise() {
       if (this.workout.type === 'strength') {
         this.workout.exercises.push({
@@ -348,6 +355,8 @@ export default {
         })
       }
     },
+
+    // Remove Exercise to Workout
     removeExercise(id) {
       if (this.workout.exercises.length > 1) {
         this.workout.exercises = this.workout.exercises.filter(

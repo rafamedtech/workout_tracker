@@ -1,13 +1,10 @@
 export const state = () => ({
-  isLoading: false,
-  statusMsg: null,
-  errorMsg: null,
+  deleteModal: false,
   workouts: [],
 })
 
 export const actions = {
-  // Fetch all workouts from supabase
-
+  // Fetch all workouts
   async fetchWorkouts({ commit }) {
     try {
       const { data, error } = await this.$supabase.from('workouts').select('*')
@@ -15,26 +12,9 @@ export const actions = {
 
       if (error) throw error
     } catch ({ message }) {
-      commit('setErrorMsg', message)
+      commit('setErrorMsg', message, { root: true })
       setTimeout(() => {
-        commit('setErrorMsg', null)
-      }, 5000)
-    }
-  },
-
-  async fetchWorkout({ commit }, id) {
-    try {
-      const { error } = await this.$supabase
-        .from('workouts')
-        .select('*')
-        .eq('id', id)
-      //   commit('setWorkout', data)
-
-      if (error) throw error
-    } catch ({ message }) {
-      commit('setErrorMsg', message)
-      setTimeout(() => {
-        commit('setErrorMsg', null)
+        commit('setErrorMsg', null, { root: true })
       }, 5000)
     }
   },
@@ -44,21 +24,22 @@ export const actions = {
     try {
       const { error } = await this.$supabase.from('workouts').insert([payload])
 
-      this.$router.push('/')
-      commit('setStatusMsg', 'Workout created')
+      commit('setStatusMsg', 'Workout created', { root: true })
       setTimeout(() => {
-        commit('setStatusMsg', null)
+        commit('setStatusMsg', null, { root: true })
       }, 5000)
 
+      this.$router.push('/')
       if (error) throw error
     } catch ({ message }) {
-      commit('setErrorMsg', message)
+      commit('setErrorMsg', message, { root: true })
       setTimeout(() => {
-        commit('setErrorMsg', null)
+        commit('setErrorMsg', null, { root: true })
       }, 5000)
     }
   },
 
+  // Update Workout
   async updateWorkout({ commit }, payload) {
     try {
       const { error } = await this.$supabase
@@ -66,13 +47,16 @@ export const actions = {
         .update(payload)
         .eq('id', Number(payload.id))
 
-      //   commit('setUpdateWorkout', data)
+      commit('setStatusMsg', 'Workout updated', { root: true })
+      setTimeout(() => {
+        commit('setStatusMsg', null, { root: true })
+      }, 5000)
 
       if (error) throw error
     } catch (error) {
-      commit('setErrorMsg', error)
+      commit('setErrorMsg', error, { root: true })
       setTimeout(() => {
-        commit('setErrorMsg', null)
+        commit('setErrorMsg', null, { root: true })
       }, 5000)
     }
   },
@@ -85,12 +69,17 @@ export const actions = {
         .delete()
         .eq('id', id)
 
+      commit('setStatusMsg', 'Workout deleted', { root: true })
+      setTimeout(() => {
+        commit('setStatusMsg', null, { root: true })
+      }, 5000)
+
       this.$router.push('/')
       if (error) throw error
     } catch ({ message }) {
-      commit('setErrorMsg', message)
+      commit('setErrorMsg', message, { root: true })
       setTimeout(() => {
-        commit('setErrorMsg', null)
+        commit('setErrorMsg', null, { root: true })
       }, 5000)
     }
   },
@@ -98,30 +87,10 @@ export const actions = {
 
 export const getters = {
   getWorkouts: (state) => state.workouts,
-  getStatusMsg: (state) => state.statusMsg,
-  getErrorMsg: (state) => state.errorMsg,
-  getWorkout: (state) => (id) => {
-    return state.workouts.find((workout) => workout.id === Number(id))
-  },
 }
 
 export const mutations = {
   setWorkouts(state, workouts) {
     state.workouts = workouts
-  },
-  //   setUpdateWorkout(state, updatedWorkout) {
-  //     const index = state.workouts.findIndex(
-  //       (workout) => workout.id === updatedWorkout.id
-  //     )
-  //     if (index !== -1) {
-  //       state.todos.splice(index, 1, updatedWorkout)
-  //     }
-  //   },
-
-  setStatusMsg(state, payload) {
-    state.statusMsg = payload
-  },
-  setErrorMsg(state, error) {
-    state.errorMsg = error
   },
 }

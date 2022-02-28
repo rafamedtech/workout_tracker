@@ -1,17 +1,19 @@
 export const state = () => ({
   user: null,
-  isLoading: false,
-  statusMsg: null,
-  errorMsg: null,
+  request: {
+    statusMsg: null,
+    errorMsg: null,
+  },
 })
 
 export const actions = {
-  // Fetch all workouts from supabase
+  // Fetch all workouts and user on first load
   async nuxtServerInit({ dispatch }) {
     await dispatch('workouts/fetchWorkouts')
     await dispatch('fetchUser')
   },
 
+  // Fetch user
   fetchUser({ commit }) {
     const user = this.$supabase.auth.user()
     if (user) {
@@ -41,9 +43,15 @@ export const actions = {
   async userLogin({ commit }, payload) {
     try {
       const { data, error } = await this.$supabase.auth.signIn(payload)
-      commit('setUser', data.user)
 
-      if (data) this.$router.push('/')
+      if (data) {
+        commit('setUser', data.user)
+        commit('setStatusMsg', 'Login successful')
+        setTimeout(() => {
+          commit('setStatusMsg', null)
+        }, 5000)
+        this.$router.push('/')
+      }
 
       if (error) throw error
     } catch ({ message }) {
@@ -59,6 +67,10 @@ export const actions = {
     try {
       const { error } = await this.$supabase.auth.signOut()
       commit('setUser', null)
+      commit('setStatusMsg', 'Logout successful')
+      setTimeout(() => {
+        commit('setStatusMsg', null)
+      }, 5000)
 
       this.$router.push('/login')
 
@@ -74,8 +86,7 @@ export const actions = {
 
 export const getters = {
   getUser: (state) => state.user,
-  getStatusMsg: (state) => state.statusMsg,
-  getErrorMsg: (state) => state.errorMsg,
+  getRequest: (state) => state.request,
 }
 
 export const mutations = {
@@ -83,9 +94,9 @@ export const mutations = {
     state.user = payload
   },
   setStatusMsg(state, payload) {
-    state.statusMsg = payload
+    state.request.statusMsg = payload
   },
   setErrorMsg(state, error) {
-    state.errorMsg = error
+    state.request.errorMsg = error
   },
 }

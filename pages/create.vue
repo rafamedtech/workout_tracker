@@ -126,9 +126,8 @@
               v-model="item.cardioType"
               class="w-full p-2 text-gray-500 focus:outline-none"
             >
-              <option value="">Select Type</option>
-              <option value="run">Run</option>
-              <option value="walk">Walk</option>
+              <option value="Run">Run</option>
+              <option value="Walk">Walk</option>
             </select>
           </section>
 
@@ -187,33 +186,40 @@
         </button>
       </section>
       <hr />
-      <input
-        type="submit"
-        value="Record Workout"
-        class="mt-6 cursor-pointer self-end rounded-sm border-2 border-solid border-transparent bg-at-light-blue py-2 px-6 text-sm text-white duration-200 hover:border-at-blue hover:bg-white hover:text-at-blue"
-      />
+      <section class="mt-6 flex gap-x-2 self-end">
+        <button
+          class="self-start rounded-sm border-2 border-solid border-transparent bg-red-500 py-2 px-6 text-sm text-white duration-200 hover:border-at-light-blue hover:bg-white hover:text-at-light-blue"
+          @click="$router.go(-1)"
+        >
+          Cancel
+        </button>
+        <input
+          type="submit"
+          value="Record Workout"
+          class="cursor-pointer rounded-sm border-2 border-solid border-transparent bg-at-light-blue py-2 px-6 text-sm text-white duration-200 hover:border-at-blue hover:bg-white hover:text-at-blue"
+        />
+      </section>
     </form>
+
+    <!-- Form Error Handling -->
     <article
       v-if="formErrorMsg"
-      class="mt-10 rounded-md bg-light-grey p-4 shadow-lg"
+      class="absolute right-4 bottom-4 mt-10 flex animate-bounce items-center gap-x-2 rounded-md bg-light-grey p-4 text-red-500 shadow-lg"
     >
-      <p class="text-red-500">{{ formErrorMsg }}</p>
-    </article>
-
-    <!-- Status Message -->
-    <article
-      v-if="statusMsg || errorMsg"
-      class="mt-10 rounded-md bg-light-grey p-4 shadow-lg"
-    >
-      <p class="text-at-light-blue">{{ statusMsg }}</p>
-      <p class="text-red-500">{{ errorMsg }}</p>
+      <AlertCircle />
+      <p>{{ formErrorMsg }}</p>
     </article>
   </main>
 </template>
 
 <script>
 import { uid } from 'uid'
+import AlertCircle from 'vue-material-design-icons/AlertCircle.vue'
+
 export default {
+  components: {
+    AlertCircle,
+  },
   middleware({ store, redirect }) {
     // If the user is not authenticated
     if (!store.getters.getUser) {
