@@ -15,7 +15,7 @@
 
     <!-- Data -->
     <div
-      class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+      class="mb-8 grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
     >
       <WorkoutCard
         v-for="(workout, index) in workouts"
@@ -29,7 +29,14 @@
 <script>
 export default {
   head: {
-    title: 'Workout Tracker',
+    title: 'Workout Tracker | Home',
+    meta: [
+      {
+        hid: 'description',
+        name: 'description',
+        content: 'Workout Tracker',
+      },
+    ],
   },
   computed: {
     workouts() {

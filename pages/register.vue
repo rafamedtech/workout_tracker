@@ -1,44 +1,49 @@
 <template>
-  <main class="mx-auto max-w-screen-sm px-4 py-10">
+  <main class="mx-auto min-h-screen max-w-[450px] px-4 py-10">
     <!-- Register Form -->
     <form
-      class="flex flex-col gap-4 rounded-md bg-light-grey p-8 shadow-lg"
+      class="flex flex-col gap-4 rounded-md bg-white p-8 shadow-lg"
       @submit.prevent="userRegister"
     >
-      <h1 class="mb-4 text-3xl text-at-light-blue">Register</h1>
+      <h1 class="mb-4 text-3xl text-blue-500">Register</h1>
+      <img
+        class="h-full"
+        src="@/assets/images/register-image.png"
+        alt="Register image"
+      />
       <section class="mb-2 flex flex-col">
-        <label for="email" class="mb-1 text-sm text-at-light-blue">Email</label>
+        <label for="email" class="mb-1 text-sm text-gray-500">Email</label>
         <input
           id="email"
           v-model="email"
           type="email"
-          class="p-2 text-gray-500 focus:outline-at-light-blue"
+          class="rounded-md border border-gray-500 p-2 text-gray-500 focus:outline-blue-500"
           required
         />
       </section>
 
       <section class="mb-2 flex flex-col">
-        <label for="password" class="mb-1 text-sm text-at-light-blue"
+        <label for="password" class="mb-1 text-sm text-gray-500"
           >Password</label
         >
         <input
           id="password"
           v-model="password"
           type="password"
-          class="p-2 text-gray-500 focus:outline-at-light-blue"
+          class="rounded-md border border-gray-500 p-2 text-gray-500 focus:outline-blue-500"
           required
         />
       </section>
 
       <section class="mb-2 flex flex-col">
-        <label for="confirmPassword" class="mb-1 text-sm text-at-light-blue"
+        <label for="confirmPassword" class="mb-1 text-sm text-gray-500"
           >Confirm Password</label
         >
         <input
           id="confirmPassword"
           v-model="confirmPassword"
           type="password"
-          class="p-2 text-gray-500 focus:outline-at-light-blue"
+          class="rounded-md border border-gray-500 p-2 text-gray-500 focus:outline-blue-500"
           required
         />
       </section>
@@ -46,20 +51,20 @@
       <input
         type="submit"
         value="Register"
-        class="mt-6 cursor-pointer self-center rounded-sm border-2 border-solid border-transparent bg-btn-primary py-2 px-6 text-sm text-white duration-200 hover:border-at-light-blue hover:bg-white hover:text-at-light-blue"
+        class="mt-6 cursor-pointer self-center rounded-sm border-2 border-solid border-transparent bg-gray-500 py-2 px-6 text-sm text-white duration-200 hover:border-blue-500 hover:bg-blue-500 focus:outline-blue-500"
       />
 
       <nuxt-link class="mt-6 text-center text-sm" to="/login">
-        Already have an account? <span class="text-at-light-blue">Login</span>
+        Already have an account? <span class="text-purple-500">Login</span>
       </nuxt-link>
     </form>
 
     <!-- Form Error Handling -->
     <article
       v-if="formErrorMsg"
-      class="absolute right-4 bottom-4 mt-10 flex animate-bounce items-center gap-x-2 rounded-md bg-light-grey p-4 text-red-500 shadow-lg"
+      class="absolute right-4 top-4 mt-2 flex animate-bounce items-center gap-x-2 rounded-md bg-white p-4 text-gray-500 shadow-lg"
     >
-      <AlertCircle />
+      <AlertCircle fill-color="#C30000" :size="36" />
       <p>{{ formErrorMsg }}</p>
     </article>
   </main>
@@ -67,6 +72,7 @@
 
 <script>
 import AlertCircle from 'vue-material-design-icons/AlertCircle.vue'
+
 export default {
   components: {
     AlertCircle,
@@ -79,6 +85,18 @@ export default {
       formErrorMsg: '',
     }
   },
+
+  head: {
+    title: 'Workout Tracker | Register',
+    meta: [
+      {
+        hid: 'description',
+        name: 'description',
+        content: 'Create an account',
+      },
+    ],
+  },
+
   methods: {
     userRegister() {
       if (this.password === this.confirmPassword) {

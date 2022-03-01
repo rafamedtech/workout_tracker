@@ -1,31 +1,36 @@
 <template>
-  <main class="mx-auto max-w-screen-sm px-4 py-10">
+  <main class="mx-auto max-w-[450px] px-4 py-10">
     <!-- Login Form -->
     <form
       class="flex flex-col gap-4 rounded-lg bg-white p-8 shadow-lg"
       @submit.prevent="userLogin"
     >
-      <h1 class="mb-4 text-3xl text-at-light-blue">Login</h1>
+      <h1 class="mb-4 text-3xl text-purple-500">Login</h1>
+      <img
+        class="h-full"
+        src="@/assets/images/login-image.png"
+        alt="login image"
+      />
       <section class="mb-2 flex flex-col">
-        <label for="email" class="mb-1 text-sm text-at-light-blue">Email</label>
+        <label for="email" class="mb-1 text-sm text-gray-500">Email</label>
         <input
           id="email"
           v-model="email"
           type="email"
-          class="border border-black p-2 text-gray-500 focus:outline-at-light-blue"
+          class="rounded-md border border-gray-500 p-2 text-gray-500 focus:outline-purple-500"
           required
         />
       </section>
 
       <section class="mb-2 flex flex-col">
-        <label for="password" class="mb-1 text-sm text-at-light-blue"
+        <label for="password" class="mb-1 text-sm text-gray-500"
           >Password</label
         >
         <input
           id="password"
           v-model="password"
           type="password"
-          class="border border-black p-2 text-gray-500 focus:outline-at-light-blue"
+          class="rounded-md border border-gray-500 p-2 text-gray-500 focus:outline-purple-500"
           required
         />
       </section>
@@ -33,11 +38,11 @@
       <input
         type="submit"
         value="Login"
-        class="mt-6 cursor-pointer self-center rounded-sm border-2 border-solid border-transparent bg-at-light-blue py-2 px-6 text-sm text-white duration-200 hover:border-at-blue hover:bg-white hover:text-at-blue"
+        class="mt-6 cursor-pointer self-center rounded-sm border-2 border-solid border-transparent bg-gray-500 py-2 px-6 text-sm text-white transition-all duration-200 hover:border-purple-500 hover:bg-purple-500 focus:outline-purple-500"
       />
 
       <nuxt-link class="mt-6 text-center text-sm" to="/register">
-        Don't have an account? <span class="text-at-light-blue">Register</span>
+        Don't have an account? <span class="text-blue-500">Register</span>
       </nuxt-link>
     </form>
   </main>
@@ -50,6 +55,17 @@ export default {
       email: '',
       password: '',
     }
+  },
+
+  head: {
+    title: 'Workout Tracker | Login',
+    meta: [
+      {
+        hid: 'description',
+        name: 'description',
+        content: 'Login to your account',
+      },
+    ],
   },
 
   methods: {

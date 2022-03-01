@@ -1,5 +1,5 @@
 <template>
-  <header class="bg-at-blue text-white">
+  <header class="bg-gray-500 text-white">
     <nav
       class="container flex flex-col items-center gap-4 py-3 px-4 sm:flex-row"
     >
@@ -8,9 +8,9 @@
           :size="48"
           class="flex h-14 w-14 items-center justify-center"
         />
-        <!-- <img class="w-14" src="@/assets/images/running-light.png" alt="" /> -->
-        <h1 class="text-lg">Workout Tracker</h1>
+        <h1 class="logo text-3xl">Workout Tracker</h1>
       </article>
+
       <ul class="flex flex-1 justify-end gap-x-10">
         <nuxt-link v-if="$route.path !== '/'" class="cursor-pointer" to="/"
           >Home</nuxt-link
@@ -34,6 +34,7 @@
 
 <script>
 import Dumbbell from 'vue-material-design-icons/Dumbbell.vue'
+
 export default {
   components: {
     Dumbbell,
