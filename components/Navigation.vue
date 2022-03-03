@@ -8,7 +8,7 @@
           :size="48"
           class="flex h-14 w-14 items-center justify-center"
         />
-        <h1 class="logo text-3xl">Workout Tracker</h1>
+        <h1 class="logo text-4xl">Workout Tracker</h1>
       </article>
 
       <ul class="flex flex-1 justify-end gap-x-10">
@@ -39,11 +39,13 @@ export default {
   components: {
     Dumbbell,
   },
+
   computed: {
     user() {
       return this.$store.getters.getUser
     },
   },
+
   methods: {
     userLogout() {
       return this.$store.dispatch('userLogout')

@@ -90,13 +90,7 @@ export const getters = {
 }
 
 export const mutations = {
-  setUser(state, payload) {
-    state.user = payload
-  },
-  setStatusMsg(state, payload) {
-    state.request.statusMsg = payload
-  },
-  setErrorMsg(state, error) {
-    state.request.errorMsg = error
-  },
+  setUser: (state, payload) => (state.user = payload),
+  setStatusMsg: (state, payload) => (state.request.statusMsg = payload),
+  setErrorMsg: (state, error) => (state.request.errorMsg = error),
 }

@@ -29,6 +29,7 @@ export default {
     CloseCircle,
     CheckCircle,
   },
+
   computed: {
     request() {
       return this.$store.getters.getRequest

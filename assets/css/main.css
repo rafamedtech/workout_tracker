@@ -8,6 +8,7 @@
 
   html {
     background-color: #fafafb;
+    overflow-x: hidden;
   }
 
   body {
@@ -32,10 +33,33 @@
 
 .slide-fade-enter-active,
 .slide-fade-leave-active {
-  transition: all 0.3s ease-out;
+  transition: all 0.3s ease;
 }
 
 .slide-fade-leave-to {
   transform: translateX(-15px);
   opacity: 0;
+}
+
+.slide-up-enter {
+  transform: scale(0.6);
+  opacity: 0;
+}
+
+.slide-up-enter-active {
+  transition: all 0.4s ease;
+}
+
+.slide-up-leave-to {
+  opacity: 0;
+  transform: scale(0.6);
+}
+
+.slide-up-leave-active {
+  transition: all 0.4s ease;
+  position: absolute;
+}
+
+.slide-up-move {
+  transition: all 0.4s ease;
 }

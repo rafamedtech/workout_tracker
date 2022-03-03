@@ -1,8 +1,8 @@
 <template>
-  <main class="mx-auto min-h-screen max-w-[450px] px-4 py-10">
+  <main class="mx-auto min-h-full max-w-[450px] px-4 py-10">
     <!-- Register Form -->
     <form
-      class="flex flex-col gap-4 rounded-md bg-white p-8 shadow-lg"
+      class="flex flex-col gap-3 rounded-md bg-white p-8 shadow-lg"
       @submit.prevent="userRegister"
     >
       <h1 class="mb-4 text-3xl text-blue-500">Register</h1>
@@ -77,17 +77,16 @@ export default {
   components: {
     AlertCircle,
   },
-  data() {
-    return {
-      email: '',
-      password: '',
-      confirmPassword: '',
-      formErrorMsg: '',
-    }
-  },
+
+  data: () => ({
+    email: '',
+    password: '',
+    confirmPassword: '',
+    formErrorMsg: '',
+  }),
 
   head: {
-    title: 'Workout Tracker | Register',
+    title: 'Register | Workout Tracker',
     meta: [
       {
         hid: 'description',

@@ -90,7 +90,5 @@ export const getters = {
 }
 
 export const mutations = {
-  setWorkouts(state, workouts) {
-    state.workouts = workouts
-  },
+  setWorkouts: (state, workouts) => (state.workouts = workouts),
 }

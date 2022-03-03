@@ -39,6 +39,7 @@ export default {
       required: true,
     },
   },
+
   methods: {
     deleteWorkout() {
       return this.$store.dispatch('workouts/deleteWorkout', this.workout.id)

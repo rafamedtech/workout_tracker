@@ -5,7 +5,7 @@
       @click="$router.go(-1)"
     >
       <ArrowLeft />
-      back
+      Back
     </button>
 
     <div>
@@ -129,7 +129,7 @@
             </div>
             <div class="flex flex-1 flex-col">
               <label for="weight" class="mb-1 text-sm text-purple-500">
-                Weight (LB's)
+                Weight
               </label>
               <input
                 v-if="edit"
@@ -138,7 +138,7 @@
                 class="w-full rounded-md border border-gray-500 p-2 text-gray-500 focus:outline-gray-500"
                 type="text"
               />
-              <p v-else class="text-gray-500">{{ item.weight }}</p>
+              <p v-else class="text-gray-500">{{ item.weight }} LB's</p>
             </div>
             <DeleteOutline
               v-if="edit"
@@ -192,7 +192,7 @@
                 class="w-full rounded-md border border-gray-500 p-2 text-gray-500 focus:outline-gray-500"
                 type="text"
               />
-              <p v-else class="text-gray-500">{{ item.distance }}</p>
+              <p v-else class="text-gray-500">{{ item.distance }} Km</p>
             </div>
             <div class="flex flex-1 flex-col">
               <label for="duration" class="mb-1 text-sm text-blue-500">
@@ -205,7 +205,7 @@
                 class="w-full rounded-md border border-gray-500 p-2 text-gray-500 focus:outline-gray-500"
                 type="text"
               />
-              <p v-else class="text-gray-500">{{ item.duration }}</p>
+              <p v-else class="text-gray-500">{{ item.duration }} Mins</p>
             </div>
             <div class="flex flex-1 flex-col">
               <label for="pace" class="mb-1 text-sm text-blue-500">
@@ -301,18 +301,16 @@ export default {
     DeleteOutline,
     PencilOutline,
   },
-  data() {
-    return {
-      edit: false,
-      dataLoaded: false,
-      deleteModal: false,
-      formErrorMsg: null,
-      workout: {},
-    }
-  },
+  data: () => ({
+    edit: false,
+    dataLoaded: false,
+    deleteModal: false,
+    formErrorMsg: null,
+    workout: {},
+  }),
 
   head: {
-    title: 'Workout Tracker | Workout Details',
+    title: 'Workout Details | Workout Tracker',
     meta: [
       {
         hid: 'description',
@@ -328,7 +326,7 @@ export default {
     },
   },
 
-  mounted() {
+  created() {
     this.getWorkout()
   },
 

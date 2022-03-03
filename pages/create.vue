@@ -219,23 +219,23 @@ export default {
     DeleteOutline,
     NotePlusOutline,
   },
+
+  // If the user is not authenticated
   middleware({ store, redirect }) {
-    // If the user is not authenticated
     if (!store.getters.getUser) {
       return redirect('/')
     }
   },
-  data() {
-    return {
-      workoutName: '',
-      workoutType: '',
-      exercises: [1],
-      formErrorMsg: '',
-    }
-  },
+
+  data: () => ({
+    workoutName: '',
+    workoutType: '',
+    exercises: [1],
+    formErrorMsg: '',
+  }),
 
   head: {
-    title: 'Workout Tracker | Create Workout',
+    title: 'Create Workout | Workout Tracker',
     meta: [
       {
         hid: 'description',
@@ -256,6 +256,7 @@ export default {
       return this.$store.getters.getUser
     },
   },
+
   methods: {
     addExercise() {
       if (this.workoutType === 'strength') {

@@ -2,7 +2,7 @@
   <main class="mx-auto max-w-[450px] px-4 py-10">
     <!-- Login Form -->
     <form
-      class="flex flex-col gap-4 rounded-lg bg-white p-8 shadow-lg"
+      class="flex flex-col gap-3 rounded-lg bg-white p-8 shadow-lg"
       @submit.prevent="userLogin"
     >
       <h1 class="mb-4 text-3xl text-purple-500">Login</h1>
@@ -50,15 +50,13 @@
 
 <script>
 export default {
-  data() {
-    return {
-      email: '',
-      password: '',
-    }
-  },
+  data: () => ({
+    email: '',
+    password: '',
+  }),
 
   head: {
-    title: 'Workout Tracker | Login',
+    title: 'Login | Workout Tracker',
     meta: [
       {
         hid: 'description',

@@ -1,9 +1,11 @@
 <template>
   <div class="m-h-full font-Poppins">
     <Navigation />
+
     <transition name="slide-fade">
       <Nuxt class="container" />
     </transition>
+
     <Notifications v-if="request" />
   </div>
 </template>
@@ -15,6 +17,7 @@ export default {
       return this.$store.getters.getRequest
     },
   },
+
   mounted() {
     // When the app loads, check to see if the user is signed in
 
@@ -22,6 +25,7 @@ export default {
 
     this.checkUser()
   },
+
   methods: {
     async checkUser() {
       const user = await this.$supabase.auth.user()
