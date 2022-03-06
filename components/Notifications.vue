@@ -21,19 +21,26 @@
 </template>
 
 <script>
-import CloseCircle from 'vue-material-design-icons/CloseCircle.vue'
-import CheckCircle from 'vue-material-design-icons/CheckCircle.vue'
+import CloseCircle from 'icons/CloseCircle.vue'
+import CheckCircle from 'icons/CheckCircle.vue'
 
 export default {
   components: {
     CloseCircle,
     CheckCircle,
   },
-
-  computed: {
-    request() {
-      return this.$store.getters.getRequest
+  props: {
+    request: {
+      type: Object,
+      // default: () => ({}),
+      required: true,
     },
   },
+
+  // computed: {
+  //   request() {
+  //     return this.$store.getters.getRequest
+  //   },
+  // },
 }
 </script>

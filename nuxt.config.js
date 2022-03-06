@@ -1,3 +1,5 @@
+import { resolve } from 'path'
+
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
@@ -14,6 +16,7 @@ export default {
       { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' },
     ],
+
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
 
@@ -46,10 +49,13 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    '@nuxtjs/auth-next',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
+  axios: {
+    baseURL: process.env.API_URL || 'http://localhost:8000/api',
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
@@ -57,6 +63,40 @@ export default {
       plugins: {
         tailwindcss: {},
         autoprefixer: {},
+      },
+    },
+  },
+
+  alias: {
+    icons: resolve(__dirname, 'node_modules/vue-material-design-icons'),
+  },
+
+  // Auth module configuration: https://go.nuxtjs.dev/config-auth
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: '/users/token/',
+            method: 'post',
+            propertyName: 'access_token',
+          },
+          refresh: {
+            url: '/users/token/refresh/',
+            method: 'post',
+          },
+          logout: {
+            url: '/users/logout/',
+            method: 'post',
+          },
+          // user: false,
+          user: {
+            url: '/users/',
+            method: 'get',
+            propertyName: false,
+          },
+        },
+        tokenType: '',
       },
     },
   },

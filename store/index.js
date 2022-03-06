@@ -10,7 +10,7 @@ export const actions = {
   // Fetch all workouts and user on first load
   async nuxtServerInit({ dispatch }) {
     await dispatch('workouts/fetchWorkouts')
-    await dispatch('fetchUser')
+    // await dispatch('fetchUser')
   },
 
   // Fetch user
@@ -26,13 +26,17 @@ export const actions = {
   // User Registration
   async userRegister({ commit }, payload) {
     try {
-      const { error } = await this.$supabase.auth.signUp(payload)
+      const { error } = await this.$axios.post('/users/register/', payload)
 
+      commit('setStatusMsg', 'Registration successful!')
+      setTimeout(() => {
+        commit('setStatusMsg', null)
+      }, 5000)
       this.$router.push('/login')
 
       if (error) throw error
-    } catch ({ message }) {
-      commit('setErrorMsg', message)
+    } catch ({ response }) {
+      commit('setErrorMsg', response.data.error)
       setTimeout(() => {
         commit('setErrorMsg', null)
       }, 5000)
@@ -42,20 +46,23 @@ export const actions = {
   // User Login
   async userLogin({ commit }, payload) {
     try {
-      const { data, error } = await this.$supabase.auth.signIn(payload)
+      const { data, error } = await this.$auth.loginWith('local', {
+        data: payload,
+      })
 
-      if (data) {
-        commit('setUser', data.user)
-        commit('setStatusMsg', 'Login successful')
-        setTimeout(() => {
-          commit('setStatusMsg', null)
-        }, 5000)
-        this.$router.push('/')
-      }
+      this.$auth.setUser(data.user)
+
+      console.log(this.$auth.user)
+      await this.$auth.setUserToken(data.access, data.refresh)
+      commit('setStatusMsg', 'Login successful')
+      setTimeout(() => {
+        commit('setStatusMsg', null)
+      }, 5000)
+      this.$router.push('/')
 
       if (error) throw error
-    } catch ({ message }) {
-      commit('setErrorMsg', message)
+    } catch ({ response }) {
+      commit('setErrorMsg', response.data.detail)
       setTimeout(() => {
         commit('setErrorMsg', null)
       }, 5000)
@@ -64,23 +71,13 @@ export const actions = {
 
   // User Logout
   async userLogout({ commit }) {
-    try {
-      const { error } = await this.$supabase.auth.signOut()
-      commit('setUser', null)
-      commit('setStatusMsg', 'Logout successful')
-      setTimeout(() => {
-        commit('setStatusMsg', null)
-      }, 5000)
+    await this.$auth.logout()
+    this.$router.push('/login')
 
-      this.$router.push('/login')
-
-      if (error) throw error
-    } catch ({ message }) {
-      commit('setErrorMsg', message)
-      setTimeout(() => {
-        commit('setErrorMsg', null)
-      }, 5000)
-    }
+    commit('setStatusMsg', 'Logout successful')
+    setTimeout(() => {
+      commit('setStatusMsg', null)
+    }, 5000)
   },
 }
 

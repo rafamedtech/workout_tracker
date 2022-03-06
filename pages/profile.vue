@@ -1,6 +1,6 @@
 <template>
   <main class="container mt-10">
-    <h1 class="ml-4 text-3xl text-gray-500 md:ml-0 md:mb-4">All Workouts</h1>
+    <h1 class="ml-4 text-3xl text-gray-500 md:ml-0 md:mb-4">My Workouts</h1>
     <!-- Data -->
     <transition-group
       v-if="workouts.length"
@@ -29,25 +29,10 @@
 
 <script>
 export default {
-  head: {
-    title: 'Home | Workout Tracker',
-    meta: [
-      {
-        hid: 'description',
-        name: 'description',
-        content: 'Workout Tracker',
-      },
-    ],
-  },
-
   computed: {
     workouts() {
-      return this.$store.getters['workouts/getWorkouts']
+      return this.$store.getters['workouts/getMyWorkouts']
     },
-  },
-
-  created() {
-    this.$store.dispatch('workouts/fetchWorkouts')
   },
 }
 </script>

@@ -52,7 +52,7 @@
 
 .slide-up-leave-to {
   opacity: 0;
-  transform: scale(0.6);
+  /* transform: scale(0.6); */
 }
 
 .slide-up-leave-active {
@@ -61,5 +61,5 @@
 }
 
 .slide-up-move {
-  transition: all 0.4s ease;
+  transition: all 0.3s ease;
 }

@@ -1,6 +1,6 @@
 <template>
   <nuxt-link
-    class="flex cursor-pointer flex-col items-center rounded-md bg-white p-8 shadow-lg transition-all duration-200 hover:-translate-y-1 hover:shadow-2xl"
+    class="m-4 flex cursor-pointer flex-col items-center rounded-md bg-white p-8 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl md:m-0"
     :to="`/view-workout/${workout.id}`"
   >
     <img
@@ -22,7 +22,7 @@
     <i class="text-center text-[10px] text-gray-500"
       >Added by <br /><span
         :class="workout.type === 'cardio' ? 'text-blue-500' : 'text-purple-500'"
-        >{{ workout.User }}</span
+        >{{ workout.owner === $auth.user ? 'you' : workout.owner }}</span
       ></i
     >
   </nuxt-link>

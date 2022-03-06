@@ -6,11 +6,23 @@
       @submit.prevent="userRegister"
     >
       <h1 class="mb-4 text-3xl text-blue-500">Register</h1>
-      <img
-        class="h-full"
-        src="@/assets/images/register-image.png"
-        alt="Register image"
-      />
+      <figure class="h-48">
+        <img
+          class="mx-auto h-full"
+          src="@/assets/images/register-image.png"
+          alt="Register image"
+        />
+      </figure>
+      <section class="mb-2 flex flex-col">
+        <label for="name" class="mb-1 text-sm text-gray-500">Name</label>
+        <input
+          id="name"
+          v-model="name"
+          type="text"
+          class="rounded-md border border-gray-500 p-2 text-gray-500 focus:outline-blue-500"
+          required
+        />
+      </section>
       <section class="mb-2 flex flex-col">
         <label for="email" class="mb-1 text-sm text-gray-500">Email</label>
         <input
@@ -71,7 +83,7 @@
 </template>
 
 <script>
-import AlertCircle from 'vue-material-design-icons/AlertCircle.vue'
+import AlertCircle from 'icons/AlertCircle.vue'
 
 export default {
   components: {
@@ -79,6 +91,7 @@ export default {
   },
 
   data: () => ({
+    name: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -100,6 +113,7 @@ export default {
     userRegister() {
       if (this.password === this.confirmPassword) {
         return this.$store.dispatch('userRegister', {
+          name: this.name,
           email: this.email,
           password: this.password,
         })
@@ -109,6 +123,18 @@ export default {
         this.formErrorMsg = ''
       }, 5000)
     },
+    // userRegister() {
+    //   if (this.password === this.confirmPassword) {
+    //     return this.$store.dispatch('userRegister', {
+    //       email: this.email,
+    //       password: this.password,
+    //     })
+    //   }
+    //   this.formErrorMsg = 'Passwords do not match'
+    //   setTimeout(() => {
+    //     this.formErrorMsg = ''
+    //   }, 5000)
+    // },
   },
 }
 </script>

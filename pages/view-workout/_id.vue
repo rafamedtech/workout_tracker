@@ -14,9 +14,12 @@
         v-if="dataLoaded"
         class="relative flex flex-col items-center rounded-md bg-white p-8 shadow-md"
       >
-        <article v-if="user" class="absolute left-2 top-2 flex gap-x-2">
+        <article
+          v-if="$auth.loggedIn"
+          class="absolute left-2 top-2 flex gap-x-2"
+        >
           <div
-            v-if="workout.User == user.email"
+            v-if="workout.owner == $auth.user"
             class="flex h-7 w-7 cursor-pointer items-center justify-center rounded-full bg-red-500 shadow-lg"
             @click="deleteWorkout"
           >
@@ -26,7 +29,7 @@
             />
           </div>
           <div
-            v-if="!edit && workout.User == user.email"
+            v-if="!edit && workout.owner == $auth.user"
             class="flex h-7 w-7 cursor-pointer items-center justify-center rounded-full bg-gray-400 shadow-lg"
             @click="editMode"
           >
@@ -67,7 +70,7 @@
             :class="
               workout.type === 'cardio' ? 'text-blue-500' : 'text-purple-500'
             "
-            >{{ workout.User }}</span
+            >{{ workout.owner === $auth.user ? 'you' : workout.owner }}</span
           >
           <br />{{ workout.created_at.slice(0, 10) }}</i
         >
@@ -95,11 +98,11 @@
               <input
                 v-if="edit"
                 id="exercise-name"
-                v-model="item.exercise"
+                v-model="item.strength_type"
                 class="w-full rounded-md border border-gray-500 p-2 text-gray-500 focus:outline-gray-500"
                 type="text"
               />
-              <p v-else class="text-gray-500">{{ item.exercise }}</p>
+              <p v-else class="text-gray-500">{{ item.strength_type }}</p>
             </div>
             <div class="flex flex-1 flex-col">
               <label for="sets" class="mb-1 text-sm text-purple-500">
@@ -172,14 +175,14 @@
               <select
                 v-if="edit"
                 id="cardioType"
-                v-model="item.cardioType"
+                v-model="item.cardio_type"
                 class="w-full rounded-md border border-gray-500 p-2 text-gray-500 focus:outline-none"
                 type="text"
               >
                 <option value="Run">Run</option>
                 <option value="Walk">Walk</option>
               </select>
-              <p v-else class="text-gray-500">{{ item.cardioType }}</p>
+              <p v-else class="text-gray-500">{{ item.cardio_type }}</p>
             </div>
             <div class="flex flex-1 flex-col">
               <label for="distance" class="mb-1 text-sm text-blue-500">
@@ -288,11 +291,11 @@
 </template>
 
 <script>
-import { uid } from 'uid'
-import AlertCircle from 'vue-material-design-icons/AlertCircle.vue'
-import ArrowLeft from 'vue-material-design-icons/ArrowLeft.vue'
-import DeleteOutline from 'vue-material-design-icons/DeleteOutline.vue'
-import PencilOutline from 'vue-material-design-icons/PencilOutline.vue'
+// import { uid } from 'uid'
+import AlertCircle from 'icons/AlertCircle.vue'
+import ArrowLeft from 'icons/ArrowLeft.vue'
+import DeleteOutline from 'icons/DeleteOutline.vue'
+import PencilOutline from 'icons/PencilOutline.vue'
 
 export default {
   components: {
@@ -320,11 +323,11 @@ export default {
     ],
   },
 
-  computed: {
-    user() {
-      return this.$store.getters.getUser
-    },
-  },
+  // computed: {
+  //   user() {
+  //     return this.$store.getters.getUser
+  //   },
+  // },
 
   created() {
     this.getWorkout()
@@ -333,11 +336,9 @@ export default {
   methods: {
     // Get current workout
     async getWorkout() {
-      const { data } = await this.$supabase
-        .from('workouts')
-        .select('*')
-        .eq('id', this.$route.params.id)
-      this.workout = await data[0]
+      const { data } = await this.$axios(`/workouts/${this.$route.params.id}`)
+
+      this.workout = data
       this.dataLoaded = true
     },
     editMode() {
@@ -357,8 +358,8 @@ export default {
     addExercise() {
       if (this.workout.type === 'strength') {
         this.workout.exercises.push({
-          id: uid(),
-          exercise: '',
+          // id: '',
+          strength_type: '',
           sets: '',
           reps: '',
           weight: '',
@@ -367,8 +368,8 @@ export default {
       }
       if (this.workout.type === 'cardio') {
         this.workout.exercises.push({
-          id: uid(),
-          cardioType: '',
+          // id: '',
+          cardio_type: '',
           distance: '',
           duration: '',
           pace: '',

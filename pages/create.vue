@@ -54,7 +54,7 @@
             >
             <input
               id="exercise-name"
-              v-model="item.exercise"
+              v-model="item.strength_type"
               type="text"
               class="w-full rounded-md border border-gray-500 p-2 text-gray-500 focus:outline-purple-500"
               required
@@ -122,7 +122,7 @@
             >
             <select
               id="cardio-type"
-              v-model="item.cardioType"
+              v-model="item.cardio_type"
               class="w-full rounded-md border border-gray-500 p-2 text-gray-500 focus:outline-none"
             >
               <option value="Run">Run</option>
@@ -208,10 +208,10 @@
 </template>
 
 <script>
-import { uid } from 'uid'
-import AlertCircle from 'vue-material-design-icons/AlertCircle.vue'
-import DeleteOutline from 'vue-material-design-icons/DeleteOutline.vue'
-import NotePlusOutline from 'vue-material-design-icons/NotePlusOutline.vue'
+// import { uid } from 'uid'
+import AlertCircle from 'icons/AlertCircle.vue'
+import DeleteOutline from 'icons/DeleteOutline.vue'
+import NotePlusOutline from 'icons/NotePlusOutline.vue'
 
 export default {
   components: {
@@ -222,7 +222,7 @@ export default {
 
   // If the user is not authenticated
   middleware({ store, redirect }) {
-    if (!store.getters.getUser) {
+    if (!store.$auth.user) {
       return redirect('/')
     }
   },
@@ -261,8 +261,8 @@ export default {
     addExercise() {
       if (this.workoutType === 'strength') {
         this.exercises.push({
-          id: uid(),
-          exercise: '',
+          // id: uid(),
+          strength_type: '',
           sets: '',
           reps: '',
           weight: '',
@@ -271,8 +271,8 @@ export default {
       }
       if (this.workoutType === 'cardio') {
         this.exercises.push({
-          id: uid(),
-          cardioType: '',
+          // id: uid(),
+          cardio_type: '',
           distance: '',
           duration: '',
           pace: '',
@@ -297,7 +297,7 @@ export default {
       return this.$store.dispatch('workouts/createWorkout', {
         name: this.workoutName,
         type: this.workoutType,
-        User: this.user.email,
+        // User: this.user.email,
         exercises: this.exercises,
       })
     },

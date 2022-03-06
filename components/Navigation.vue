@@ -16,12 +16,18 @@
           >Home</nuxt-link
         >
         <nuxt-link
-          v-if="user && $route.path !== '/create'"
+          v-if="$auth.user && $route.path !== '/create'"
           class="cursor-pointer"
           to="/create"
           >Create</nuxt-link
         >
-        <nuxt-link v-if="!user" class="cursor-pointer" to="/login"
+        <nuxt-link
+          v-if="$auth.loggedIn && $route.path !== '/profile'"
+          class="cursor-pointer"
+          to="/profile"
+          >My Workouts</nuxt-link
+        >
+        <nuxt-link v-if="!$auth.user" class="cursor-pointer" to="/login"
           >Login</nuxt-link
         >
         <button v-else class="cursor-pointer" @click="userLogout">
@@ -33,7 +39,7 @@
 </template>
 
 <script>
-import Dumbbell from 'vue-material-design-icons/Dumbbell.vue'
+import Dumbbell from 'icons/Dumbbell.vue'
 
 export default {
   components: {
@@ -41,9 +47,9 @@ export default {
   },
 
   computed: {
-    user() {
-      return this.$store.getters.getUser
-    },
+    // user() {
+    //   return this.$store.getters.getUser
+    // },
   },
 
   methods: {

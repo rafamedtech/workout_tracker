@@ -6,11 +6,13 @@
       @submit.prevent="userLogin"
     >
       <h1 class="mb-4 text-3xl text-purple-500">Login</h1>
-      <img
-        class="h-full"
-        src="@/assets/images/login-image.png"
-        alt="login image"
-      />
+      <figure class="h-48">
+        <img
+          class="mx-auto h-full"
+          src="@/assets/images/login-image.png"
+          alt="login image"
+        />
+      </figure>
       <section class="mb-2 flex flex-col">
         <label for="email" class="mb-1 text-sm text-gray-500">Email</label>
         <input
