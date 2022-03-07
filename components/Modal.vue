@@ -20,7 +20,6 @@
           Cancel
         </button>
         <button
-          v-if="type === 'workout'"
           type="button"
           class="cursor-pointer self-center rounded-sm border-2 border-transparent bg-gray-500 py-2 px-6 text-sm text-white transition-all"
           :class="
@@ -28,12 +27,12 @@
               ? 'hover:border-blue-500 hover:bg-blue-500 focus:outline-blue-500'
               : 'hover:border-purple-500 hover:bg-purple-500 focus:outline-purple-500'
           "
-          @click="deleteWorkout"
+          @click="actionButton"
         >
-          Delete
+          {{ type === 'workout' ? 'Delete' : 'Logout' }}
         </button>
 
-        <button
+        <!-- <button
           v-if="type === 'logout'"
           type="button"
           class="cursor-pointer self-center rounded-sm border-2 border-transparent bg-gray-500 py-2 px-6 text-sm text-white transition-all"
@@ -45,7 +44,7 @@
           @click="logout"
         >
           Logout
-        </button>
+        </button> -->
       </div>
     </article>
   </section>
@@ -54,10 +53,6 @@
 <script>
 export default {
   props: {
-    workout: {
-      type: Object,
-      default: () => ({}),
-    },
     type: {
       type: String,
       default: '',
@@ -65,14 +60,11 @@ export default {
   },
 
   methods: {
-    deleteWorkout() {
-      return this.$store.dispatch('workouts/deleteWorkout', this.workout.id)
-    },
-    logout() {
-      return this.$store.dispatch('userLogout')
-    },
     closeModal() {
       this.$emit('closeModal')
+    },
+    actionButton() {
+      this.$emit('actionButton')
     },
   },
 }

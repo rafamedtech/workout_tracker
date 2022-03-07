@@ -21,7 +21,7 @@
           <div
             v-if="workout.owner == $auth.user"
             class="flex h-7 w-7 cursor-pointer items-center justify-center rounded-full bg-red-500 shadow-lg"
-            @click="deleteWorkout"
+            @click="deleteWorkoutModal"
           >
             <DeleteOutline
               class="edit-delete h-full w-auto"
@@ -288,9 +288,9 @@
     </div>
     <Modal
       v-if="deleteModal"
-      :workout="workout"
       type="workout"
       @closeModal="deleteWorkout"
+      @actionButton="deleteWorkout"
     />
   </main>
 </template>
@@ -342,7 +342,7 @@ export default {
     editMode() {
       this.edit = !this.edit
     },
-    deleteWorkout() {
+    deleteWorkoutModal() {
       this.deleteModal = !this.deleteModal
     },
 
@@ -350,6 +350,10 @@ export default {
     updateWorkout() {
       this.$store.dispatch('workouts/updateWorkout', this.workout)
       this.edit = false
+    },
+
+    deleteWorkout() {
+      return this.$store.dispatch('workouts/deleteWorkout', this.workout.id)
     },
 
     // Add Exercise to Workout
