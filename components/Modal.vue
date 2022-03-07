@@ -5,10 +5,10 @@
     <article
       class="flex h-[143px] w-[400px] flex-col justify-around rounded-lg bg-white p-4 shadow-lg"
     >
-      <span v-if="modalType === 'workout'" class="text-md text-gray-500"
+      <span v-if="modal === 'workout'" class="text-md text-gray-500"
         >Delete this workout?</span
       >
-      <span v-if="modalType === 'logout'" class="text-md text-gray-500"
+      <span v-if="modal === 'logout'" class="text-md text-gray-500"
         >Are you sure to logout?</span
       >
       <div class="flex gap-x-4 self-end">
@@ -23,7 +23,7 @@
           type="button"
           class="cursor-pointer self-center rounded-sm border-2 border-transparent bg-gray-500 py-2 px-6 text-sm text-white transition-all"
           :class="
-            modalType === 'workout'
+            modal === 'workout'
               ? 'hover:border-blue-500 hover:bg-blue-500 focus:outline-blue-500'
               : 'hover:border-purple-500 hover:bg-purple-500 focus:outline-purple-500'
           "

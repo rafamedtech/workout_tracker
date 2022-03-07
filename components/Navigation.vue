@@ -36,8 +36,8 @@
       </ul>
     </nav>
     <Modal
-      v-show="showModal"
-      modal-type="logout"
+      v-if="showModal"
+      modal="logout"
       @closeModal="logoutModal"
       @actionButton="userLogout"
     />
