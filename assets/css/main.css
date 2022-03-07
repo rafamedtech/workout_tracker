@@ -62,3 +62,46 @@
 .slide-up-move {
   transition: all 0.3s ease;
 }
+
+.input-enter {
+  transform: translateY(15px);
+  opacity: 0;
+}
+
+.input-enter-active {
+  transition: all 0.3s ease;
+}
+
+.input-leave-to {
+  transform: translateY(-15px);
+  opacity: 0;
+}
+
+.input-leave-active {
+  transition: all 0.3s ease;
+}
+
+.input-move {
+  transition: all 0.3s ease;
+}
+
+.switch-enter-from,
+.switch-leave-to {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.switch-enter-to,
+.switch-leave-from {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.switch-enter-active {
+  transition: all 0.5s ease;
+}
+
+.switch-leave-active {
+  transition: all 0.5s ease;
+  position: absolute;
+}

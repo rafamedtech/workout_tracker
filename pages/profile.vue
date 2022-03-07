@@ -1,5 +1,5 @@
 <template>
-  <main class="container mt-10">
+  <main class="container mt-10 md:px-4">
     <h1 class="ml-4 text-3xl text-gray-500 md:ml-0 md:mb-4">My Workouts</h1>
     <!-- Data -->
     <div

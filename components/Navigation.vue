@@ -30,11 +30,12 @@
         <nuxt-link v-if="!$auth.user" class="cursor-pointer" to="/login"
           >Login</nuxt-link
         >
-        <button v-else class="cursor-pointer" @click="userLogout">
+        <button v-else class="cursor-pointer" @click="logoutModal">
           Logout
         </button>
       </ul>
     </nav>
+    <Modal v-if="showModal" type="logout" @closeModal="logoutModal" />
   </header>
 </template>
 
@@ -46,9 +47,14 @@ export default {
     Dumbbell,
   },
 
+  emits: ['close'],
+  data: () => ({
+    showModal: false,
+  }),
+
   methods: {
-    userLogout() {
-      return this.$store.dispatch('userLogout')
+    logoutModal() {
+      this.showModal = !this.showModal
     },
   },
 }

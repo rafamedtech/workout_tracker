@@ -286,7 +286,12 @@
         </div>
       </div>
     </div>
-    <DeleteModal v-if="deleteModal" :workout="workout" />
+    <Modal
+      v-if="deleteModal"
+      :workout="workout"
+      type="workout"
+      @closeModal="deleteWorkout"
+    />
   </main>
 </template>
 
@@ -338,7 +343,7 @@ export default {
       this.edit = !this.edit
     },
     deleteWorkout() {
-      this.deleteModal = true
+      this.deleteModal = !this.deleteModal
     },
 
     // Update Workout
