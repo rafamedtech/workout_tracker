@@ -19,7 +19,9 @@
     <h1 class="mt-8 mb-2 text-center text-xl text-gray-500">
       {{ workout.name }}
     </h1>
-    <i class="text-center text-[10px] text-gray-500"
+    <i
+      v-if="$route.path !== '/profile'"
+      class="text-center text-[10px] text-gray-500"
       >Added by <br /><span
         :class="workout.type === 'cardio' ? 'text-blue-500' : 'text-purple-500'"
         >{{ workout.owner === $auth.user ? 'you' : workout.owner }}</span

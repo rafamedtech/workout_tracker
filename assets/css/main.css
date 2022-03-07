@@ -52,7 +52,6 @@
 
 .slide-up-leave-to {
   opacity: 0;
-  /* transform: scale(0.6); */
 }
 
 .slide-up-leave-active {

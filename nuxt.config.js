@@ -36,13 +36,6 @@ export default {
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
     '@nuxt/postcss8',
-    [
-      'nuxt-supabase',
-      {
-        supabaseUrl: process.env.SUPABASE_URL,
-        supabaseKey: process.env.SUPABASE_KEY,
-      },
-    ],
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -89,7 +82,6 @@ export default {
             url: '/users/logout/',
             method: 'post',
           },
-          // user: false,
           user: {
             url: '/users/',
             method: 'get',

@@ -17,22 +17,5 @@ export default {
       return this.$store.getters.getRequest
     },
   },
-
-  // mounted() {
-  //   // When the app loads, check to see if the user is signed in
-
-  //   this.$supabase.auth.onAuthStateChange(() => this.checkUser())
-
-  //   this.checkUser()
-  // },
-
-  // methods: {
-  //   async checkUser() {
-  //     const user = await this.$supabase.auth.user()
-  //     if (user) {
-  //       this.$store.dispatch('fetchUser', user)
-  //     }
-  //   },
-  // },
 }
 </script>

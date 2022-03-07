@@ -29,18 +29,12 @@ export default {
     CloseCircle,
     CheckCircle,
   },
+
   props: {
     request: {
       type: Object,
-      // default: () => ({}),
       required: true,
     },
   },
-
-  // computed: {
-  //   request() {
-  //     return this.$store.getters.getRequest
-  //   },
-  // },
 }
 </script>

@@ -46,12 +46,6 @@ export default {
     Dumbbell,
   },
 
-  computed: {
-    // user() {
-    //   return this.$store.getters.getUser
-    // },
-  },
-
   methods: {
     userLogout() {
       return this.$store.dispatch('userLogout')

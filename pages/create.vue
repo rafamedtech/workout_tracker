@@ -208,7 +208,6 @@
 </template>
 
 <script>
-// import { uid } from 'uid'
 import AlertCircle from 'icons/AlertCircle.vue'
 import DeleteOutline from 'icons/DeleteOutline.vue'
 import NotePlusOutline from 'icons/NotePlusOutline.vue'
@@ -252,16 +251,12 @@ export default {
     statusMsg() {
       return this.$store.getters.getStatusMsg
     },
-    user() {
-      return this.$store.getters.getUser
-    },
   },
 
   methods: {
     addExercise() {
       if (this.workoutType === 'strength') {
         this.exercises.push({
-          // id: uid(),
           strength_type: '',
           sets: '',
           reps: '',
@@ -271,7 +266,6 @@ export default {
       }
       if (this.workoutType === 'cardio') {
         this.exercises.push({
-          // id: uid(),
           cardio_type: '',
           distance: '',
           duration: '',
@@ -297,7 +291,6 @@ export default {
       return this.$store.dispatch('workouts/createWorkout', {
         name: this.workoutName,
         type: this.workoutType,
-        // User: this.user.email,
         exercises: this.exercises,
       })
     },

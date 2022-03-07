@@ -291,7 +291,6 @@
 </template>
 
 <script>
-// import { uid } from 'uid'
 import AlertCircle from 'icons/AlertCircle.vue'
 import ArrowLeft from 'icons/ArrowLeft.vue'
 import DeleteOutline from 'icons/DeleteOutline.vue'
@@ -323,12 +322,6 @@ export default {
     ],
   },
 
-  // computed: {
-  //   user() {
-  //     return this.$store.getters.getUser
-  //   },
-  // },
-
   created() {
     this.getWorkout()
   },
@@ -358,7 +351,6 @@ export default {
     addExercise() {
       if (this.workout.type === 'strength') {
         this.workout.exercises.push({
-          // id: '',
           strength_type: '',
           sets: '',
           reps: '',
@@ -368,7 +360,6 @@ export default {
       }
       if (this.workout.type === 'cardio') {
         this.workout.exercises.push({
-          // id: '',
           cardio_type: '',
           distance: '',
           duration: '',

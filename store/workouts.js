@@ -8,10 +8,8 @@ export const actions = {
   // Fetch all workouts
   async fetchWorkouts({ commit }) {
     try {
-      // const { data, error } = await this.$supabase.from('workouts').select('*')
       const { data, error } = await this.$axios('/workouts/')
       commit('setWorkouts', data)
-      console.log(this.$auth.user)
 
       if (this.$auth.user) {
         commit(
@@ -29,25 +27,9 @@ export const actions = {
     }
   },
 
-  // Fetch a single workout
-  async fetchWorkout({ commit }, id) {
-    try {
-      const { data, error } = await this.$axios(`/workouts/${id}`)
-      commit('setWorkout', data)
-
-      if (error) throw error
-    } catch ({ message }) {
-      commit('setErrorMsg', message, { root: true })
-      setTimeout(() => {
-        commit('setErrorMsg', null, { root: true })
-      }, 5000)
-    }
-  },
-
   // Create Workout
   async createWorkout({ commit }, payload) {
     try {
-      // const { error } = await this.$supabase.from('workouts').insert([payload])
       const { error } = await this.$axios.post('/workouts/', payload, {
         headers: {
           Authorization: 'Bearer ' + this.$auth.user.token,
@@ -72,7 +54,7 @@ export const actions = {
   // Update Workout
   async updateWorkout({ commit }, payload) {
     try {
-      const { data, error } = await this.$axios.put(
+      const { error } = await this.$axios.put(
         `/workouts/${payload.id}/`,
         payload,
         {
@@ -81,12 +63,6 @@ export const actions = {
           },
         }
       )
-
-      console.log(data)
-      // const { error } = await this.$supabase
-      //   .from('workouts')
-      //   .update(payload)
-      //   .eq('id', Number(payload.id))
 
       commit('setStatusMsg', 'Workout updated', { root: true })
       setTimeout(() => {
@@ -110,11 +86,6 @@ export const actions = {
           Authorization: 'Bearer ' + this.$auth.user.token,
         },
       })
-
-      // const { error } = await this.$supabase
-      //   .from('workouts')
-      //   .delete()
-      //   .eq('id', id)
 
       commit('setStatusMsg', 'Workout deleted', { root: true })
       setTimeout(() => {

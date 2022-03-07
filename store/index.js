@@ -7,20 +7,9 @@ export const state = () => ({
 })
 
 export const actions = {
-  // Fetch all workouts and user on first load
+  // Fetch all workouts on first load
   async nuxtServerInit({ dispatch }) {
     await dispatch('workouts/fetchWorkouts')
-    // await dispatch('fetchUser')
-  },
-
-  // Fetch user
-  fetchUser({ commit }) {
-    const user = this.$supabase.auth.user()
-    if (user) {
-      commit('setUser', user)
-    } else {
-      commit('setUser', null)
-    }
   },
 
   // User Registration
@@ -52,13 +41,12 @@ export const actions = {
 
       this.$auth.setUser(data.user)
 
-      console.log(this.$auth.user)
       await this.$auth.setUserToken(data.access, data.refresh)
       commit('setStatusMsg', 'Login successful')
       setTimeout(() => {
         commit('setStatusMsg', null)
       }, 5000)
-      this.$router.push('/')
+      this.$router.push('/profile')
 
       if (error) throw error
     } catch ({ response }) {
