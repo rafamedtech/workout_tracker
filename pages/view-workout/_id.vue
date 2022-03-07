@@ -286,12 +286,12 @@
         </div>
       </div>
     </div>
-    <!-- <Modal
+    <Modal
       v-if="deleteModal"
       modal="workout"
       @closeModal="deleteWorkoutModal"
       @actionButton="deleteWorkout"
-    /> -->
+    />
   </main>
 </template>
 

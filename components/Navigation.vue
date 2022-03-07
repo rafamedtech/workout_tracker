@@ -35,12 +35,12 @@
         </button>
       </ul>
     </nav>
-    <!-- <Modal
+    <Modal
       v-if="showModal"
       modal="logout"
       @closeModal="logoutModal"
       @actionButton="userLogout"
-    /> -->
+    />
   </header>
 </template>
 
@@ -61,8 +61,8 @@ export default {
       this.showModal = !this.showModal
     },
     userLogout() {
-      this.showModal = false
       this.$store.dispatch('userLogout')
+      this.showModal = false
     },
   },
 }
