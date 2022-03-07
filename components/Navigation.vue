@@ -35,12 +35,12 @@
         </button>
       </ul>
     </nav>
-    <Modal
+    <!-- <Modal
       v-if="showModal"
       modal="logout"
       @closeModal="logoutModal"
       @actionButton="userLogout"
-    />
+    /> -->
   </header>
 </template>
 
