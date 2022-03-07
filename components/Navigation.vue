@@ -30,7 +30,7 @@
         <nuxt-link v-if="!$auth.user" class="cursor-pointer" to="/login"
           >Login</nuxt-link
         >
-        <button v-else class="cursor-pointer" @click="logoutModal()">
+        <button v-else class="cursor-pointer" @click="logoutModal">
           Logout
         </button>
       </ul>
