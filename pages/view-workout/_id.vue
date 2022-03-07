@@ -288,8 +288,8 @@
     </div>
     <Modal
       v-if="deleteModal"
-      type="workout"
-      @closeModal="deleteWorkout"
+      modal-type="workout"
+      @closeModal="deleteWorkoutModal"
       @actionButton="deleteWorkout"
     />
   </main>
@@ -352,6 +352,7 @@ export default {
       this.edit = false
     },
 
+    // Delete Workout
     deleteWorkout() {
       return this.$store.dispatch('workouts/deleteWorkout', this.workout.id)
     },
