@@ -287,7 +287,7 @@
       </div>
     </div>
     <Modal
-      v-if="deleteModal"
+      v-show="deleteModal"
       modal="workout"
       @closeModal="deleteWorkoutModal"
       @actionButton="deleteWorkout"
