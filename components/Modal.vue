@@ -3,7 +3,7 @@
     class="absolute inset-0 z-50 grid h-screen w-screen place-items-center bg-gray-500/80"
   >
     <article
-      class="flex h-[143px] w-[400px] flex-col justify-around rounded-lg bg-white p-4 shadow-lg"
+      class="flex h-[143px] w-80 flex-col justify-around rounded-lg bg-white p-4 shadow-lg"
     >
       <span v-if="modal === 'workout'" class="text-md text-gray-500"
         >Delete this workout?</span
