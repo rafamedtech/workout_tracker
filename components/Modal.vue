@@ -29,7 +29,7 @@
           "
           @click="actionButton"
         >
-          {{ type === 'workout' ? 'Delete' : 'Logout' }}
+          {{ modal === 'workout' ? 'Delete' : 'Logout' }}
         </button>
       </div>
     </article>

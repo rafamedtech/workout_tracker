@@ -286,6 +286,8 @@
         </div>
       </div>
     </div>
+
+    <!-- Delete workout modal -->
     <Modal
       v-if="deleteModal"
       modal="workout"
@@ -308,6 +310,7 @@ export default {
     DeleteOutline,
     PencilOutline,
   },
+
   data: () => ({
     edit: false,
     dataLoaded: false,
